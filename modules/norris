@@ -1,0 +1,27 @@
+#!/usr/bin/perl -w
+if ($msg =~ /^!\w* -help(?: (.*))?/){
+    if (!$1 || $1 =~ /-?help/ ) {
+        return "Fetches a random Chuck Norris \"Joke\"\nUsage: !norris"
+	}
+}
+use HTML::Entities;
+
+if ($msg =~ /^!norris/){
+    $url = "http://www.4q.cc/index.php?pid=fact&person=chuck";
+    print "Fetching: $url\n";
+    $ua = LWP::UserAgent->new();
+    $request = HTTP::Request->new(GET => $url);
+    $ua->agent('Mozilla/5.0');
+    $response = $ua->request($request);
+    if ($response->is_success) {
+	$contents = $response->content;
+	print $contents;
+	$i = 0;	
+	while ($contents =~ s/<div id="factbox">\n*\s*(.*)<\/div>//) {
+	    $norrisfact = $1;	
+	    $norrisfact = decode_entities($norrisfact);
+	    print "$norrisfact\n";
+	}
+	return $norrisfact;
+    }
+}

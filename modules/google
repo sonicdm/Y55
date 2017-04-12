@@ -1,0 +1,31 @@
+use HTML::Entities;
+if ($msg =~ /^!google( (.*))/) {
+    $query = $2;
+    $query = uri_escape($query);
+    $url = "http://www.google.com/search?hl=en&q=" . $query . "&btnG=Search";
+    print "Grabbing First Result For: " . $1 . "\n";
+    print "Fetching: $url\n";
+    $ua = LWP::UserAgent->new();
+    $request = HTTP::Request->new(GET => $url);
+    $ua->agent('Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.8) Gecko/20050609 Firefox/1.0.4');
+    $response = $ua->request($request);
+    if ($response->is_success) {
+        $contents = $response->content;
+        $i = 0;
+        if ($contents =~ /<\!--m-->.*?href=\"(.*?)\".*?>(.*?)<\/a>(.*?)<span/) {
+            $matchurl = $1;
+	    $matchtitle = "Google: " . decode_entities($2);
+$matchdesc = decode_entities($3);
+$matchdesc =~ s/<.*?>//g;
+	    $matchtitle =~ s/<.*?>//g;
+            $i++;
+        }
+        if ($i != 0) {
+            my $message = $matchtitle . " - " . $matchurl . " - " . $matchdesc;
+            return $message;
+        } else {
+            return "No Results.\n";
+#	    print $contents;
+        }
+    }
+}

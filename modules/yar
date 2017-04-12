@@ -1,0 +1,9 @@
+    if ($msg =~ /^!yar */) {
+	$msg =~ s/^!yar //;
+	$msg = quotemeta $msg;
+	my $newtext = `echo $msg | pirate`;
+
+        $newtext = $sender . ": " . $newtext;
+	return $newtext;
+	print $newtext;
+	}

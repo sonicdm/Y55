@@ -1,0 +1,16 @@
+#!/usr/bin/perl -w
+if ($msg =~ /^!\w* -help(?: (.*))?/){
+    if (!$1 || $1 =~ /-?help/ ) {
+        return "Demotes something to Scapegoat of the Week\n
+Usage: !blame <stuffs>"
+}
+}
+
+if ($msg =~ /^!blame (.*)/ || /^!scapetize (.*)/) {
+    $who = $1;
+    chomp($who);
+    open(MES , ">", "y55scape");
+    print(MES $who);
+    close(MES);
+    return "$who is now the Scapegoat of the Week";
+}

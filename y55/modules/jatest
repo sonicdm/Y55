@@ -1,0 +1,21 @@
+#!$ENV/perl -w
+use HTML::Entities;
+use LWP::UserAgent;
+use HTTP::Request;
+use utf8;
+#use strict;
+
+return "è±";
+my $url = "http://www.sandbenders.org/~lotyrin/japanese.xhtml";
+my $ua = LWP::UserAgent->new();
+my $request = HTTP::Request->new(GET => $url);
+    $ua->agent('Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.8) Gecko/20050609 Firefox/1.0.4');
+$response = $ua->request($request);
+if ($response->is_success) {
+    my $contents = $response->content;
+    print $contents;
+    while ($contents =~ s/<p>(.*)<//) {
+	print "$1\n";
+	return "$1\n";
+    }
+}

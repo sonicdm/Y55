@@ -1,0 +1,9 @@
+    if ($msg =~ /^!rot */) {
+	$msg =~ s/^!rot //;
+#	$msg = quotemeta $msg;
+#	$msg = `echo $msg | rot13`;
+	$msg =~ y/A-Za-z/N-ZA-Mn-za-m/;
+	$msg = $sender . ": " . $msg;
+	return $msg;
+	print $msg;
+    }

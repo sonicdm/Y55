@@ -1,0 +1,8 @@
+    if ($msg =~ /^!scapegoat/) {
+	open(SCA , "y55scape");
+	$goat = <SCA>;
+	close(SCA);
+	$scapegoat = "Scapegoat of the week: $goat";
+	$say = `cowsay -f satanic $scapegoat`;
+	return $say;
+    }

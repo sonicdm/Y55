@@ -1,0 +1,35 @@
+use HTML::Entities;	
+   if ($msg =~ /^!define( ([0-9]*))? (.*)/) {
+	$search = uri_escape($3);
+	$url = "http://www.google.com/search?hl=en&q=define%3A" . $search . "&btnG=Search";
+	my @matches = "";
+	print "Searching: " . $3 . " for result '" . $2 . "'\n";
+	if ($2) {
+	    $result = $2 - 1;
+	} else {
+	    $result = 0;
+	}
+	print "Fetching: $url\n";
+        $ua = LWP::UserAgent->new();
+	$request = HTTP::Request->new(GET => $url);
+        $ua->agent('Mozilla/5.0');
+        $response = $ua->request($request);
+        if ($response->is_success) {
+	    $contents = $response->content;
+	    $i = 0;
+	    while ($contents =~ s/<li>([^<]*)//) {
+		$matches[$i] = $1;
+		$matches[$i] =~ s/&quot;/"/g; #"
+                $i++;
+	    }
+	    if ($i != 0) {
+		$total = $#matches + 1;
+		$displayresult = $result + 1;
+		$retstr = "Result " . $displayresult . " of " . $total . ": " . $matches[$result];
+$retstr = decode_entities($retstr);
+return $retstr;
+	    } else {
+	       return "Sorry, no results";
+	    }
+	}
+    }

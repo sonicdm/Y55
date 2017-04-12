@@ -1,0 +1,8 @@
+#!/usr/bin/perl -w
+if ($msg =~ /^!sex -help(?: (.*))?/){
+    if (!$1 || $1 =~ /-?help/ ) {
+	return "spouts a silly mad-lib-like random porn-style text.\nUsage: !sex"
+	}
+}
+return `sex`;
+

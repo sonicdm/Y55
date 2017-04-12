@@ -1,0 +1,30 @@
+#!/usr/bin/perl -w
+   if ($msg =~ /^!(?:calc|convert)( (.*))/){
+	$conversion = $1;
+	$convstr = uri_escape($conversion);
+	$url = "http://www.google.com/search?hl=en&q=" . $convstr . "&btnG=Search";
+	print "Grabbing Conversion For: " . $conversion . "\n";
+	print "Fetching: $url\n";
+	$ua = LWP::UserAgent->new();
+	$request = HTTP::Request->new(GET => $url);
+	$ua->agent('Mozilla/5.0');
+	$response = $ua->request($request);
+	if ($response->is_success) {
+	    $contents = $response->content;
+	    $i = 0;
+	    while ($contents =~ s/calc_img.gif.*?<b>(.*?)<\/b>//, ) {
+		$match = $1;
+		$match =~ s/<sup>/\^/g;
+		$match =~ s/(<.*?>)//g;
+		$match =~ s/([0-9]) ([0-9])/$1,$2/g;
+		$match = decode_entities($match);
+		$i++;
+	    }
+	    if ($i != 0) {
+		$msg = $match;
+		return $msg;
+	    } else {
+		return "Sorry, Invalid Conversion.\n";
+	    }
+	}
+    }    

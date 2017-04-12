@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+use Time::Duration;
+use Time::ParseDate;
+use Time::Format;
+
+
+$msg = "!age 4/07/1986";
+    if ($msg =~ /^!age (.*)/) {
+	$birthdate = $1;
+
+    }

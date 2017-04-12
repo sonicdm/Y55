@@ -1,0 +1,35 @@
+#!/usr/bin/perl 
+use HTML::Entities;
+use URI::Escape;
+use LWP::UserAgent;
+
+
+#$msg = "!translate en es What color is the poop in your bowl?";
+if ($msg =~ /^!translate( ([a-zA-Z]{2}) ([a-zA-Z]{2}) (.*))/) {
+    $langstr = $2 . "|" . $3;
+    $translation = $4;
+    $transstr = uri_escape($translation);
+    $url = "http://translate.google.com/translate_t?text=" . $transstr . "&langpair=" . $langstr . "";
+    print "Grabbing Translation For " . $langstr . ": " . $translation . "\n";
+    print "Fetching: $url\n";
+    my $ua = LWP::UserAgent->new();
+    my $request = HTTP::Request->new(GET => $url);
+    $ua->agent('Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.8) Gecko/20050609 Firefox/1.0.4');
+    $response = $ua->request($request);
+    if ($response->is_success) {
+	$contents = $response->content;
+	$i = 0;
+        #print $contents;
+	while ($contents =~ s/id=\"?result_box\"?.*?>(.*?)<\///) {
+	    $translation = $1;
+	    $i++;
+	}
+	if ($i != 0) {
+	    print "$translation\n";
+	    return $translation;
+	}
+	else {
+	    print "Sorry, something broke.\n";
+	}
+    }
+}

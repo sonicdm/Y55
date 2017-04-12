@@ -1,0 +1,8 @@
+    if ($msg =~ /^!bork */) {
+	$msg =~ s/^!bork //;
+	$msg = quotemeta $msg;
+	my $newtext = `echo $msg | chef`;
+	$newtext = $sender . ": " . $newtext;
+	return $newtext;
+	print $newtext;
+    }

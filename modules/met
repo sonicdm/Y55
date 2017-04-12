@@ -1,0 +1,11 @@
+    if ($msg =~ /^!met ([A-Z]{4})/) {
+	$url = "http://weather.noaa.gov/pub/data/observations/metar/stations/" . $1 . ".TXT";
+	print "Fetching: $url\n";
+        $ua = LWP::UserAgent->new();
+	$request = HTTP::Request->new(GET => $url);
+	$ua->agent('Mozilla/5.0');
+	$response = $ua->request($request);
+	if ($response->is_success) {
+	    return $response->content;
+	}
+    }

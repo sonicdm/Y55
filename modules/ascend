@@ -1,0 +1,16 @@
+#!/usr/bin/perl -w
+if ($msg =~ /^!\w* -help(?: (.*))?/){
+    if (!$1 || $1 =~ /-?help/ ) {
+	return "Ascends something to Messiah of the Week\n
+Usage: !ascend <stuffs> || !praise <things>"
+	}
+}
+
+if ($msg =~ /^!(?:ascend|praise) (.*)/) {
+    $who = $1;
+    chomp($who);
+    open(MES , ">", "y55messiah");
+    print(MES $who);
+    close(MES);
+    return "$who ascends to position of Messiah of the Week";
+}

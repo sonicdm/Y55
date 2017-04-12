@@ -1,0 +1,8 @@
+    if ($msg =~ /^!jive */) {
+	$msg =~ s/^!jive //;
+	$msg = quotemeta $msg;
+	my $newtext = `echo $msg | jive`;
+	$newtext = $sender . ": " . $newtext;
+	return $newtext;
+	print $newtext;
+    }

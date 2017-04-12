@@ -1,0 +1,143 @@
+#!/usr/bin/perl
+use HTML::HeadParser;
+use HTTP::Request;
+use HTTP::Headers;
+use LWP::UserAgent;
+use URI::Escape;
+use HTML::Entities;    
+
+#$msg = "!xfire sonicdm";
+
+if ($msg =~ /^!xfire -help(?: (.*))?/){
+    if (!$1 || $1 =~ /-?help/ ) {
+	return "Xfire stats module. Fetches the top 10 games on xfire for the given user.\n
+Usage:!xfire [-total] (username) || -help [command]"
+}
+    if ($1 =~ /-?total/) {
+	return "Fetches the number of total hours gamed from Xfire\n
+Usage: !xfire -total (username)"
+}
+}
+
+if ($msg =~ /^!xfire -total( (.*))/) {
+    $user = $2;
+    $url = "http://www.xfire.com/profile/$2";
+    print "Grabbing First Result For: " . $1 . "\n";
+    print "Fetching: $url\n";
+    $ua = LWP::UserAgent->new();
+    $request = HTTP::Request->new(GET => $url);
+    $ua->agent('Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.8) Gecko/20050609 Firefox/1.0.4');
+    $response = $ua->request($request);
+    if ($response->is_success) {
+	$contents = $response->content;
+	$i = 0;	
+#	print $contents;
+	while ($contents =~ s/gamecol\"><strong>Overall.*[\s\S]*?week.*?>(?:((?:< )?\d+)|-).*[\s\S]*?total.*?>(?:((?:< )?[\d,]+)|-)//){
+	    my $totalhours = $2;
+	    my $weekhours = $1;
+	    $weekhours =~ s/-/0/;	    
+	    return "Hours gamed for $user - $url - Last 7 Days: $weekhours hours. Total: $totalhours hours.";
+	}
+    }
+
+
+}
+my $numgames;
+my %my_games;
+my $numgames;
+my $theoutput;
+
+if ($msg =~ /^!xfire (?!-\w\d*)(.*)/) {
+    $user = $1;
+    $url = "http://www.xfire.com/profile/$1";
+    print "Grabbing First Result For: " . $1 . "\n";
+    print "Fetching: $url\n";
+    $ua = LWP::UserAgent->new();
+    $request = HTTP::Request->new(GET => $url);
+    $ua->agent('Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.8) Gecko/20050609 Firefox/1.0.4');
+    $response = $ua->request($request);
+    if ($response->is_success) {
+        $contents = $response->content;
+        $i = 0;
+#       print $contents;
+	$numgames = 0;
+	$theoutput = $null;
+	%my_games;
+        while ($contents =~ s/gamecol\">\s*(.*)[\s\S]*?totalcol\">\s*?((?:< |\&lt\; )?\d+)//){   
+	    $game = decode_entities($1);
+	    $gamehours = decode_entities($2);
+	    print "$game - $gamehours hours\n";        
+	    $my_games{$game} = $gamehours;
+	}
+	foreach $gamestat ( sort { $my_games{$b} <=> $my_games{$a};} keys %my_games) {
+	    #print "$gamestat: $my_games{$gamestat} hours\n";
+	    if ($numgames <= 9) {	
+		$theoutput = $theoutput . "$gamestat: $my_games{$gamestat} Hours\n";
+		$numgames++
+		}
+	}
+    }
+    if ($numgames > 0) {
+	$theoutput = "Top $numgames games for $user - $url\n" . $theoutput;    
+	print $theoutput;
+	return $theoutput;
+    }
+    else {
+	return "No Such User or User Has No Data\n";
+    }
+}
+
+
+if ($msg =~ /^!xfire -week (.*)/) {
+    $user = $1;
+    $url = "http://www.xfire.com/profile/$1";
+    print "Grabbing First Result For: " . $1 . "\n";
+    print "Fetching: $url\n";
+    $ua = LWP::UserAgent->new();
+    $request = HTTP::Request->new(GET => $url);
+    $ua->agent('Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.8) Gecko/20050609 Firefox/1.0.4');
+    $response = $ua->request($request);
+    if ($response->is_success) {
+        $contents = $response->content;
+        $i = 0;
+#       print $contents;
+	$numgames = 0;
+	$theoutput = $null;
+	%my_games;
+        while ($contents =~ s/gamecol\">\s*([^<].*)[\s\S]*?weekcol\">\s*?(?:((?:< |\&lt\; )?\d+)|-)//){   
+	    my $game = decode_entities($1);
+	    my $gamehours = decode_entities($2);
+	    
+#	    print "$game - $gamehours hours\n";        
+		if ($gamehours =~ /\d+/) {
+		    print "$game - $gamehours hours\n";
+		    $my_games{$game} = $gamehours;
+		}	
+	    
+	}
+	foreach $gamestat ( sort { $my_games{$b} <=> $my_games{$a};} keys %my_games) {
+	    #print "$gamestat: $my_games{$gamestat} hours\n";
+	    if ($numgames <= 9) {	
+		$theoutput = $theoutput . "$gamestat: $my_games{$gamestat} Hours\n";
+		$numgames++
+		}
+	}
+	
+    }
+    if ($numgames > 0) {
+	$theoutput = "Top $numgames games (Last 7 Days) for $user - $url\n" . $theoutput;    
+	print $theoutput;
+	return $theoutput;
+    }
+    else {
+	return "No Such User or User Has No Data\n";
+    }
+}
+
+
+
+
+
+
+
+

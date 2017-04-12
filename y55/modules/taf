@@ -1,0 +1,17 @@
+    if ($msg =~ /!taf ([A-Z]{4})/) {
+	$url = "http://weather.noaa.gov/pub/data/forecasts/taf/stations/" . $1 . ".TXT";
+	print "Fetching: $url\n";
+	$ua = LWP::UserAgent->new();
+	$request = HTTP::Request->new(GET => $url);
+	$ua->agent('Mozilla/5.0');
+	$response = $ua->request($request);
+	if ($response->is_success) {
+	    print "Processing TAF for $1\n";
+	    @contents = split("\n", $response->content);
+	    for ($i = 0; $i <= $#contents; $i++) {
+		print "Processing TAF line: " . $contents[$i] . "\n";
+		my $tafstring .= &handle_taf($contents[$i]);
+	    }
+	    return $tafstring;
+	}
+    }

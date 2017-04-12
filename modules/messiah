@@ -1,0 +1,9 @@
+   if ($msg =~ /^!messiah/) {
+	open(MES , "y55messiah");
+	$messiah = <MES>;
+	close(MES);
+	$messiah = "Messiah of the week: $messiah";
+	$say = `cowsay $messiah`;
+	return $say;
+
+    }

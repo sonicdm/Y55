@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+my $wot = $msg;
+$wot =~ s/^!roll(?: (\d*))?$//;
+my $limit = $1;
+    if ($limit) {
+	print "Limit of $limit given\n";
+	$number = int(rand ($limit) + 1);
+    }
+    else {
+	print "No limit given using 20\n";
+	$number = int(rand (20) + 1);
+    }	
+print "Rolled a : $number\n";    
+return $number;

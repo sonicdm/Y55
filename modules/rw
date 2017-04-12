@@ -1,0 +1,7 @@
+    if ($msg =~ /^!rw */) {
+	$msg =~ s/^!rw //;
+	$msg = quotemeta $msg;
+	my $newtext = `echo $msg | figlet`;
+	return $newtext;
+#	print $newtext;
+    }

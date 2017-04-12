@@ -1,0 +1,10 @@
+    if ($msg =~ /^!spell (.*)/) {
+	$msg =~ s/^!spell //;
+	chomp($msg);
+        $word = quotemeta $msg;
+        $misspelled = `echo $word | ispell -a | grep '& $word'`;
+        if ($misspelled) {
+	    print $misspelled;
+	    return "Misspelled: " . $misspelled;
+	}
+    }

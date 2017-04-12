@@ -1,0 +1,17 @@
+#!/bin/perl
+if ($msg =~ /^\!help/) {
+    opendir(DIR,$base_path) or die "OMG CANT OPEN PATH: $!";
+    @modarray = grep {  !/^\./   }
+    grep { !/~$/ }
+    sort(readdir(DIR));
+    closedir(DIR);
+    my $string = "Y55 2.0, Commands: ";
+    foreach $mod(@modarray){
+	$string = "$string !$mod,"; 
+	
+    }
+    $string =~ s/,$//;
+    return $string;
+}
+
+

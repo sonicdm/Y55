@@ -1,0 +1,7 @@
+    if ($msg =~ /^!wtf */) {
+        $msg =~ s/^!wtf //;
+        $msg = quotemeta $msg;
+        my $newtext = `wtf 2>&1 $msg | head -n 1`;
+        return $newtext;
+        print $newtext;
+    }

@@ -1,0 +1,208 @@
+#!/usr/bin/perl
+use HTML::Entities;
+use URI::Escape;
+use HTML::HeadParser;
+use HTTP::Request;
+use HTTP::Headers;
+use LWP::UserAgent;
+#use strict;
+
+my $message;
+my $output;
+my $city;
+my ($i,$day,$curtime,$first3,$request,$buff,$ua,$response,$contents);
+my $url;
+#my $msg = "!weather 97331";
+if ($msg =~ /^!weather (?!-[\w\d]*)(.*)/){
+#    $city = $1;
+    $city = uri_escape($1);
+    $url = "http://i.wund.com/cgi-bin/findweather/getForecast?brand=iphone&query=$city";
+    print "Grabbing Weather For: " . $city . "\n";
+    print "Fetching: $url\n";
+    my $ua = LWP::UserAgent->new();
+    my $request = HTTP::Request->new(GET => $url);
+    $ua->agent('Mozilla/5.0');
+    my $response = $ua->request($request);
+    if ($response->is_success) {
+	my $contents = $response->content;
+	$i = 0;
+	print $contents;
+	#Grab The City From The Title
+	while ($contents =~ s/<title>([\w,]* [\w]*(?:[\d]{5}|).*?)(?:Conditions &|Forecast)//) {
+	    $city = $1;
+	    $message = "Weather For: " . $city ."-";
+#		print "$message\n";
+	    $i = 1;
+	}
+	while ($contents =~ s/\">City Not Found<\/p>//) {
+	    $i = 3;
+	}
+	while ($contents =~ s/<title>Search for $city//) {
+	    $i = 2;
+	}
+	if ($contents =~ m/<td id=\"current\".*[\s\S]*?rap\"><b>([\d\.]*).*?>(.*?;\w)[\s\S]*?b>([\d\.]*).*?>(.*?;\w)/) {
+	   my $temp = decode_entities($1 . $2) . "/" . decode_entities($3 . $4); 
+	    $message = $message . " Temp: " . $temp . " -";
+#		print "$message\n";
+	}
+	if ($contents =~ m/<div>(.*?)<\/div>[\s\S]+?Humid/) {
+	    my $conds = decode_entities($1);
+	    $message = $message . " Conditions: " . $conds . " -";
+#		print "$message\n";
+	}	    
+
+	if ($contents =~ s/Windchill<.*?\n?.*?\n?.*?\n?.*?<b>(.*?)<//) {
+	    my $windc = $1 . "f";
+	    $message = $message . " Windchill: " . $windc . " -";
+#		print "$message\n";
+	}
+	if ($contents =~ m/<td>(\d+%)[\S\s]*?Dew/m) {
+	    my $humid = $1;
+	    $message = $message . " Humidity: " . $humid . " -";
+#		print "$message\n";
+	}
+	if ($contents =~ m/Dew Point:<\/td>[\s\S]*?rap\"><b>([\d\.]*).*?>(.*?;\w)[\s\S]*?b>([\d\.]*).*?>(.*?;\w)/)
+	{
+	    my $dewpt = decode_entities($1 . $2) . "/" . decode_entities($3 . $4);
+	    $message = $message . " Dew Point: " . $dewpt . " -";
+#		print "$message\n";
+	}
+	if ($contents =~ s/Wind:[\s\S]+?<b>(\w+)<[\s\S]+?<b>(.*?)<.*;(\w+)<[\s\S]+?<b>(.*?)<.*;([\w\/]+)<//) {
+	    my $wind = $2 . $3 . "/" . $4 . $5 . " from the the $1";
+	    $message = $message . " Wind: " . $wind . " -";
+#		print "$message\n";
+	}
+	while ($contents =~ s/(?:\d|x);\">\s*<span.*pwsvariable=\"baromin\".*\s*<b>([\d.]*)[^;]*;(\w*)\s*.*\s*<b>(\d*)[^;]*;(\w*)//) {
+	    my $pressure = $1 . $2 . "/" . $3 . $4;
+	    $message = $message . " Pressure: " . $pressure . " -";
+#		print "$message\n";
+	}	    
+	while ($contents =~ s/Visibility.*\s*.*\s*.*<b>([\d.]*)[^;]*;(\w*).*\s.*\s*.*<b>([\d.]*)[^;]*;(\w*)//) {
+	    my $visibility = "$1 $2/$3 $4";
+	    $message = $message . " Visibility: " . $visibility . " -";
+#		print "$message\n";
+	}	    	    
+	if ($contents =~ m/Sunrise:.*?<b>(.*?)<[\s\S]+?Sunset:.*?<b>(.*?)</) {
+	    my $sunrise = $1;
+	    my $sunset = $2;
+	    $message = $message . " Sunrise: " . $sunrise . " - Sunset: " . $sunset . " -";
+	}
+#	while ($contents =~ s/Sunset<.*?b>(.*?)<//) {
+#	    $sunset = $1;
+#	    $message = $message . " Sunset: " . $sunset . " -";
+#		print "$message\n";
+#	}
+    }
+    if ($i == 1) {
+	$message =~ s/ -$//;
+    }
+    if ($i == 2) {
+	$message = "Please refine your search. Check this page: " . $url;	
+    }
+    if ($i == 3) {
+	$message = "City not found.";
+    }
+    print "$message\n";
+    return $message;
+}
+
+
+
+my $forecast;
+if ($msg =~ /^!weather -(?:-?forecast|f) ([a-zA-Z]* )?(?!\w\d\w \w\d\w)(.*)/){
+    $city = uri_escape($2);
+    $day = $1;
+    $day =~ s/^mo.*/Monday/i;
+    $day =~ s/^tu.*/Tuesday/i;
+    $day =~ s/^we.*/Wednesday/i;
+    $day =~ s/^th.*/Thursday/i;
+    $day =~ s/^fr.*/Friday/i;
+    $day =~ s/^sa.*/Saturday/i;
+    $day =~ s/^su.*/Sunday/i;
+#    print "this is the hax one for the city/zip of $city on the day of $day\n";
+    $forecast = forecast($day, $city);
+    print "$forecast\n";
+    return $forecast;
+}
+
+
+sub forecast {
+    $day = shift();
+    $city = shift();
+#    $city = uri_escape($2);
+    $curtime = `date`;
+    $first3 = $day;
+    $first3 =~ /\w\w\w/;
+    if ($curtime =~ m/$first3/i) {
+        $day = "Now|Today|Tonight";
+        print "day given is today|Now|Tonight";
+    }
+    if ($day){
+        $day =~ tr/[a-z]/[A-Z]/;
+        if ($day =~ /(^[A-Z])([A-Z]+)(\W?)/) {
+            $buff = $2;
+            $buff =~ tr/[A-Z]/[a-z]/;
+            $day = $1 . $buff;
+        }
+    }
+    if (!$day) {
+        $day = "Now|Today|Tonight";
+    }
+    $url = "http://www.wunderground.com/cgi-bin/findweather/getForecast?&query=$city";
+    print "Grabbing Weather For: " . $city . " on " . $day . "\n";
+    print "Fetching: $url\n";
+    $ua = LWP::UserAgent->new();
+    $request = HTTP::Request->new(GET => $url);
+    $ua->agent('Mozilla/5.0');
+    $response = $ua->request($request);
+    if ($response->is_success) {
+        $contents = $response->content;
+        my $i = 0;
+            #Grab The City From The Title
+	while ($contents =~ s/<title>([\w,]* [\w]*(?:[0-9]{5}|).*?)(?:Conditions &|Forecast).*<\/title>//) {
+	    $city = $1;
+#	    $city =~ s/([\w,]* [\w]*(?:[0-9]{5}|).*?)(?:Conditions &|Forecast).*/$1/;
+	    $message = "Forecast For: " . $city . "- ";
+#               print "$message\n";
+            $i = 1;
+	}
+	while ($contents =~ s/<th>Place: Temperature<\/th>//) {
+
+	$i = 2;
+	}
+	while ($contents =~ s/<b>Search not found:<\/b>//) {
+	    $i = 3;
+	}
+	while ($contents =~ s/($day)<\/div>\s*<div>([^<]*)<//) {
+	    $forecast = $2;
+	    $message = $message .  $1 . ": " . $2;
+	}
+	while ($contents =~ s/($day)<\/b><br>.*\s*(.*\s*.*\s*.*\s*.*\s*.*\s*.*\s*.*\s*.*\s*.*\s*.*)//) {
+	    $day = $1;
+	    $forecast = decode_entities($2);
+	    print "$forecast\n";
+	    $forecast =~ s/[\n]//g;
+	    $forecast =~ s/\t/ /g;
+	    $forecast =~ s/ \/ /\//;
+	    print "-----\n$forecast\n";
+            $message = $message .  $day . ": " . $forecast; 
+	}
+    }
+    if (!$forecast){
+	$i = 4;
+    }
+
+    if ($i == 1) {
+        $message =~ s/ - $//;
+    }
+    if ($i == 2) {
+        $message = "Please refine your search";
+    }
+    if ($i == 3) {
+        $message = "City not found.";
+    }
+    if ($i == 4) {
+        $message = "Forecast for "  . $day . " unavailable";
+    }
+    return $message;
+}

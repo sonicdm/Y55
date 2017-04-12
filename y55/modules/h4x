@@ -1,0 +1,8 @@
+    if ($msg =~ /^!h4x */) {
+	$msg =~ s/^!h4x //;
+	$msg = quotemeta $msg;
+	my $newtext = `echo $msg | warez`;
+        $newtext = $sender . ": " . $newtext;
+	return $newtext;
+	print $newtext;
+	}

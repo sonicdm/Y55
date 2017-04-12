@@ -1,0 +1,116 @@
+#!/usr/bin/perl -w
+use XML::RSS;
+use LWP::UserAgent;
+#$msg = "!scrobble sonicdm";
+print "Running Scrobble Module\n";
+if ($msg =~ /^!scrobble -help(?: (.*))?/){
+    if (!$1 || $1 =~ /-?help/ ) {
+	return "Last.FM Stats Module: Fetches data on a given user from Last.FM\n
+Usage:!scrobble [-plays,-profile] (username) || -help [command]"
+}
+    if ($1 =~ /-?plays/) {
+	return "Fetches the number of songs recorded on Last.FM for a user\n
+Usage: !scrobble -plays (username)"    
+}
+    if ($1 =~ /-?profile/) {
+	return "Fetches the profile information from Last.FM for a user\n
+Usage: !scrobble -profile (username)"    
+}
+    
+    
+}
+if ($msg =~ /^!scrobble( (?!-[\w\d]*)([\d\w]*))/){
+    $scrobbleuser = $2;
+    $url = "http://ws.audioscrobbler.com/1.0/user/$scrobbleuser/recenttracks.rss";
+    print "Fetching songs for $scrobbleuser\n";
+    $ua = LWP::UserAgent->new();
+    $request = HTTP::Request->new(GET => $url);
+    $ua->agent('Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.8) Gecko/20050609 Firefox/1.0.4');
+    $response = $ua->request($request);
+    if ($response->is_success) {
+	$contents = $response->content;
+	my $rss = new XML::RSS;
+	$rss->parse($contents);
+	my $output;
+	$numsongs = 0;
+	$scrobbleuser = "$scrobbleuser - http://www.last.fm/user/$scrobbleuser/";
+	foreach my $item (@{$rss->{'items'}}) {
+	    next unless defined($item->{'title'});
+	    $pubdate = $item->{'pubDate'};
+	    $pubdate =~ s/ \+0000$//;
+	    $output = "$output\n" . "$item->{'title'}";
+	    $numsongs++;
+	}
+	if ($numsongs != 0){
+	    $output = "Last $numsongs songs for $scrobbleuser $output";
+	    return $output;
+	}
+	else { 
+	   return "No songs recently played by $scrobbleuser"; 
+	}
+    }
+}
+if ($msg =~ /^!scrobble( -plays ([\d\w]*))/){
+    $scrobbleuser = $2;
+    $url = "http://ws.audioscrobbler.com/1.0/user/$2/profile.xml";
+    print "Fetching songs for $scrobbleuser\n";
+    $ua = LWP::UserAgent->new();
+    $request = HTTP::Request->new(GET => $url);
+    $ua->agent('Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.8) Gecko/20050609 Firefox/1.0.4');
+    $response = $ua->request($request);
+    if ($response->is_success) {
+        $contents = $response->content;
+	my $output;
+	while ($contents =~ s/\<playcount\>(\d*)\<//) {
+	$output = "Tracks played by $scrobbleuser: " . $1;
+	}
+
+	print "$output\n";
+	return "$output"; 
+   }
+}
+
+
+if ($msg =~ /^!scrobble( -profile ([\d\w]*))/){
+    $scrobbleuser = $2;
+    $url = "http://ws.audioscrobbler.com/1.0/user/$2/profile.xml";
+    print "Fetching songs for $scrobbleuser\n";
+    $ua = LWP::UserAgent->new();
+    $request = HTTP::Request->new(GET => $url);
+    $ua->agent('Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.8) Gecko/20050609 Firefox/1.0.4');
+    $response = $ua->request($request);
+    if ($response->is_success) {
+        $contents = $response->content;
+        my $output;
+
+	if ($contents =~ /No user/) {
+	    return "User Not Found";
+	}
+
+	$output = "Profile data for $scrobbleuser";
+	while ($contents =~ s/<realname>(.*)<\/realname//){
+	    $output = $output . " - Real Name: $1";
+	}
+        while ($contents =~ s/<age>(.*)<//){
+            $output = $output . " - Age: $1";
+        }
+        while ($contents =~ s/<gender>(.*)<//){
+            $output = $output . " - Gender: $1";
+        }
+        while ($contents =~ s/<country>(.*)<//){
+            $output = $output . " - Country: $1";
+        }
+        while ($contents =~ s/<playcount>(\d*)<//) {
+	    $output = $output . " - Tracks played: $1";
+        }
+	while ($contents =~ s/<registered.*>(.*)<//) {
+	    $output = $output . " - Registered: $1";
+	}
+        while ($contents =~ s/<url>(.*)<//){
+            $output = $output . " - URL: $1";
+        }
+
+        print "$output\n";
+        return "$output";
+    }
+}

@@ -1,0 +1,437 @@
+Searching...   ..... ..... ..... ..... ..... ..... ..... ..... ..... ..... ..... ..... ..... ..... ..... ..... ..... ..... ..... ..... ...  
+[ Results for search key : rot ]
+[ Applications found : 54 ]
+ 
+*  app-admin/logrotate
+      Latest version available: 3.7.1-r1
+      Latest version installed: 3.7.1-r1
+      Size of downloaded files: 31 kB
+      Homepage:    http://www.gentoo.org
+      Description: Rotates, compresses, and mails system logs
+      License:     GPL-2
+
+*  app-antivirus/f-prot
+      Latest version available: 4.6.0-r2
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 3,627 kB
+      Homepage:    http://www.f-prot.com/
+      Description: Frisk Software's f-prot virus scanner
+      License:     F-PROT
+
+*  app-crypt/rotix
+      Latest version available: 0.83
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 14 kB
+      Homepage:    http://elektron.its.tudelft.nl/~hemmin98/rotix.html
+      Description: Rotix allows you to generate rotational obfuscations.
+      License:     GPL-2
+
+*  app-emacs/protbuf
+      Latest version available: 1.7
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 2 kB
+      Homepage:    http://www.emacswiki.org/cgi-bin/wiki.pl?ProtectingBuffers
+      Description: Protect Emacs buffers from accidental killing.
+      License:     GPL-2
+
+*  dev-games/libmaitretarot
+      Latest version available: 0.1.98
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 154 kB
+      Homepage:    http://www.nongnu.org/maitretarot/
+      Description: backend library for the maitretarot games
+      License:     GPL-2
+
+*  dev-lang/parrot [ Masked ]
+      Latest version available: 0.2.3
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 2,763 kB
+      Homepage:    http://www.parrotcode.org/
+      Description: The virtual machine that perl6 relies on.
+      License:     GPL-2
+
+*  dev-lang/prothon [ Masked ]
+      Latest version available: 0.1.2_p711
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 707 kB
+      Homepage:    http://www.prothon.org/
+      Description: A classless prototype-based programming language with the sensibilities of Python.
+      License:     as-is
+
+*  dev-perl/X11-Protocol
+      Latest version available: 0.53
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 97 kB
+      Homepage:    http://www.cpan.org/modules/by-module/X11/X11-Protocol-0.53.readme
+      Description: Client-side interface to the X11 Protocol
+      License:     Artistic X11
+
+*  dev-python/pyprotocols [ Masked ]
+      Latest version available: 0.9.3
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 331 kB
+      Homepage:    http://peak.telecommunity.com/PyProtocols.html
+      Description: Adapter/protocol framework for Python
+      License:     ZPL
+
+*  dev-util/cproto
+      Latest version available: 4.6-r1
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 121 kB
+      Homepage:    http://cproto.sourceforge.net//
+      Description: generate C function prototypes from C source code
+      License:     public-domain
+
+*  games-board/maitretarot
+      Latest version available: 0.1.98
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 89 kB
+      Homepage:    http://www.nongnu.org/maitretarot/
+      Description: server for the french tarot game maitretarot
+      License:     GPL-2
+
+*  games-engines/frotz
+      Latest version available: 2.43
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 157 kB
+      Homepage:    http://www.cs.csubak.edu/~dgriffi/proj/frotz/
+      Description: Curses based interpreter for Z-code based text games
+      License:     GPL-2
+
+*  games-fps/rott
+      Latest version available: 1.0
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 3,581 kB
+      Homepage:    http://www.icculus.org/rott/
+      Description: Rise of the Triad for Linux!
+      License:     GPL-2
+
+*  media-gfx/scrot
+      Latest version available: 0.8
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 72 kB
+      Homepage:    http://www.linuxbrit.co.uk/
+      Description: Screen Shooter
+      License:     as-is BSD
+
+*  media-sound/protux
+      Latest version available: 0.20.2
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 474 kB
+      Homepage:    http://www.nongnu.org/protux
+      Description: Professional Audio Tools for GNU/Linux
+      License:     GPL-2
+
+*  net-analyzer/traceproto [ Masked ]
+      Latest version available: 1.1.1
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 132 kB
+      Homepage:    http://traceproto.sourceforge.net/
+      Description: A traceroute-like utility that sends packets based on protocol
+      License:     GPL-2
+
+*  net-im/pebrot [ Masked ]
+      Latest version available: 0.8.7
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 78 kB
+      Homepage:    http://pebrot.sourceforge.net
+      Description: curses-based MSN client
+      License:     GPL-2
+
+*  net-mail/t-prot
+      Latest version available: 2.0.1
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 38 kB
+      Homepage:    http://www.escape.de/users/tolot/mutt/
+      Description: TOFU protection - display filter for RFC822 messages
+      License:     as-is
+
+*  net-misc/l7-protocols
+      Latest version available: 2005.09.05
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 83 kB
+      Homepage:    http://l7-filter.sourceforge.net/protocols
+      Description: Protocol definitions of l7-filter kernel modules
+      License:     GPL-2
+
+*  net-www/mod_protection [ Masked ]
+      Latest version available: 0.0.2
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 67 kB
+      Homepage:    http://www.twlc.net/
+      Description: Apache2 DSO providing basic IDS functions
+      License:     GPL-2
+
+*  net-www/mod_throttle
+      Latest version available: 3.1.2-r2
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 40 kB
+      Homepage:    http://www.snert.com/Software/mod_throttle/
+      Description: Bandwidth and request throttling for Apache
+      License:     as-is
+
+*  sec-policy/selinux-logrotate
+      Latest version available: 20050408
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 1 kB
+      Homepage:    http://www.gentoo.org/proj/en/hardened/selinux/
+      Description: SELinux policy for logrotate
+      License:     GPL-2
+
+*  www-apache/mod_parrot [ Masked ]
+      Latest version available: 0.3
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 32 kB
+      Homepage:    http://www.smashing.org/mod_parrot/
+      Description: An embedded Parrot virutal machine for Apache2
+      License:     Apache-2.0
+
+*  x11-drivers/xf86-input-microtouch [ Masked ]
+      Latest version available: 1.0.0
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 191 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org driver for microtouch input devices
+      License:     X11
+
+*  x11-proto/bigreqsproto [ Masked ]
+      Latest version available: 1.0
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 35 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org BigReqs protocol headers
+      License:     X11
+
+*  x11-proto/compositeproto [ Masked ]
+      Latest version available: 0.2
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 36 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org Composite protocol headers
+      License:     X11
+
+*  x11-proto/damageproto [ Masked ]
+      Latest version available: 1.0
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 36 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org Damage protocol headers
+      License:     X11
+
+*  x11-proto/dmxproto [ Masked ]
+      Latest version available: 2.2
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 38 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org DMX protocol headers
+      License:     X11
+
+*  x11-proto/fixesproto [ Masked ]
+      Latest version available: 3.0
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 37 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org Fixes protocol headers
+      License:     X11
+
+*  x11-proto/fontcacheproto [ Masked ]
+      Latest version available: 0.1
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 36 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org Fontcache protocol headers
+      License:     X11
+
+*  x11-proto/fontsproto [ Masked ]
+      Latest version available: 2.0
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 43 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org Fonts protocol headers
+      License:     X11
+
+*  x11-proto/glproto [ Masked ]
+      Latest version available: 1.4.1_pre20051013
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 51 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org GL protocol headers
+      License:     X11
+
+*  x11-proto/inputproto [ Masked ]
+      Latest version available: 1.3
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 44 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org Input protocol headers
+      License:     X11
+
+*  x11-proto/kbproto [ Masked ]
+      Latest version available: 1.0-r1
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 56 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org KB protocol headers
+      License:     X11
+
+*  x11-proto/panoramixproto [ Masked ]
+      Latest version available: 1.1
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 37 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org Panoramix protocol headers
+      License:     X11
+
+*  x11-proto/printproto [ Masked ]
+      Latest version available: 1.0
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 42 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org Print protocol headers
+      License:     X11
+
+*  x11-proto/randrproto [ Masked ]
+      Latest version available: 1.1
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 37 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org Randr protocol headers
+      License:     X11
+
+*  x11-proto/recordproto [ Masked ]
+      Latest version available: 1.13
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 38 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org Record protocol headers
+      License:     X11
+
+*  x11-proto/renderproto [ Masked ]
+      Latest version available: 0.9
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 38 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org Render protocol headers
+      License:     X11
+
+*  x11-proto/resourceproto [ Masked ]
+      Latest version available: 1.0
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 35 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org Resource protocol headers
+      License:     X11
+
+*  x11-proto/scrnsaverproto [ Masked ]
+      Latest version available: 1.0
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 37 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org ScrnSaver protocol headers
+      License:     X11
+
+*  x11-proto/trapproto [ Masked ]
+      Latest version available: 3.4
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 47 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org Trap protocol headers
+      License:     X11
+
+*  x11-proto/videoproto [ Masked ]
+      Latest version available: 2.2
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 41 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org Video protocol headers
+      License:     X11
+
+*  x11-proto/xcmiscproto [ Masked ]
+      Latest version available: 1.1
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 35 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org XCMisc protocol headers
+      License:     X11
+
+*  x11-proto/xextproto [ Masked ]
+      Latest version available: 7.0
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 66 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org XExt protocol headers
+      License:     X11
+
+*  x11-proto/xf86bigfontproto [ Masked ]
+      Latest version available: 1.1
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 36 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org XF86BigFont protocol headers
+      License:     X11
+
+*  x11-proto/xf86dgaproto [ Masked ]
+      Latest version available: 2.0
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 38 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org XF86DGA protocol headers
+      License:     X11
+
+*  x11-proto/xf86driproto [ Masked ]
+      Latest version available: 2.0
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 37 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org XF86DRI protocol headers
+      License:     X11
+
+*  x11-proto/xf86miscproto [ Masked ]
+      Latest version available: 0.9
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 37 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org XF86Misc protocol headers
+      License:     X11
+
+*  x11-proto/xf86rushproto [ Masked ]
+      Latest version available: 1.1
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 36 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org XF86Rush protocol headers
+      License:     X11
+
+*  x11-proto/xf86vidmodeproto [ Masked ]
+      Latest version available: 2.2
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 38 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org XF86VidMode protocol headers
+      License:     X11
+
+*  x11-proto/xineramaproto [ Masked ]
+      Latest version available: 1.1-r1
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 37 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org Xinerama protocol headers
+      License:     X11
+
+*  x11-proto/xproto [ Masked ]
+      Latest version available: 7.0_p20050917
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 104 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org xproto protocol headers
+      License:     X11
+
+*  x11-proto/xproxymanagementprotocol [ Masked ]
+      Latest version available: 1.0
+      Latest version installed: [ Not Installed ]
+      Size of downloaded files: 35 kB
+      Homepage:    http://xorg.freedesktop.org/
+      Description: X.Org PM protocol headers
+      License:     X11
+
+

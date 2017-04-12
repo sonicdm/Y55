@@ -1,0 +1,6 @@
+#!/usr/bin/perl -w
+    sub sort_by_value {
+        local(*x) = @_;
+        	sub _by_value { $x{$a} cmp $x{$b}; } 
+       	 sort _by_value keys %x;
+	} 
