@@ -23,7 +23,7 @@ $urlspam = 0;
 my $server = "irc.us.gamesurge.net";
 my $port = 6667;
 my $nick = "TastorCroy";
-my $name = "Dicks in my ass make me feel pretty";
+my $name = "";
 
 @channels = ("#ronjons,#cars");
 @ignored = ("Fishbot");
